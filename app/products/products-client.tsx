@@ -1,12 +1,22 @@
 "use client";
 import React from 'react';
-import Link from 'next/link';
+import Image from 'next/image';
+// import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { useCartStore } from '@/store/cart';
 import { Stripe } from 'stripe';
 
+
+interface ProductType {
+  id: string;
+  name: string;
+  default_price: { unit_amount: number } | number;
+  images: string[];
+  description?: string;
+}
+
 interface ProductsClientProps {
-  products: any[];
+  products: ProductType[];
 }
 
 export default function ProductsClient({ products }: ProductsClientProps) {
@@ -20,7 +30,7 @@ export default function ProductsClient({ products }: ProductsClientProps) {
     });
   };
 
-  const handleAddToCart = (product: any) => {
+  const handleAddToCart = (product: { id: string; name: string; default_price: { unit_amount: number } | number; images: string[] }) => {
     const quantity = quantities[product.id] || 0;
     if (quantity > 0) {
       addItem({
@@ -40,8 +50,8 @@ export default function ProductsClient({ products }: ProductsClientProps) {
           All Products
         </h1>
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-          {products.map((product) => {
-            const cartItem = items.find((item: any) => item.id === product.id);
+          {products.map((product: ProductType) => {
+            const cartItem = items.find((item: { id: string }) => item.id === product.id);
             const quantity = cartItem?.quantity || 0;
             const price = product.default_price as Stripe.Price | undefined;
             return (
@@ -50,9 +60,11 @@ export default function ProductsClient({ products }: ProductsClientProps) {
                 className="bg-white rounded-2xl shadow-lg p-3 sm:p-4 md:p-6 flex flex-col items-center hover:shadow-2xl transition-shadow duration-300 border border-gray-100 w-full max-w-xs mx-auto"
               >
                 {product.images && product.images[0] && (
-                  <img
+                  <Image
                     src={product.images[0]}
                     alt={product.name}
+                    width={192}
+                    height={192}
                     className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover rounded-xl mb-3 sm:mb-4 border"
                   />
                 )}

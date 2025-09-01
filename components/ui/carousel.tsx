@@ -1,9 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Stripe from 'stripe'
 import { Card,CardContent, CardTitle } from './card'
 import Image from 'next/image'
-import { Car } from 'lucide-react'
+// import { Car } from 'lucide-react'
 interface props{
     products: Stripe.Product[],
 }

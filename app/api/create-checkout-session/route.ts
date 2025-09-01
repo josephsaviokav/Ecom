@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       mode: 'payment',
-      line_items: items.map((item: any) => ({
+      line_items: items.map((item: { name: string; price: number; quantity: number; imageUrl?: string }) => ({
         price_data: {
           currency: 'usd',
           product_data: {
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cart`,
     });
     return NextResponse.json({ url: session.url });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Unable to create checkout session' }, { status: 500 });
   }
 }

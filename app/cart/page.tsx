@@ -13,7 +13,7 @@ export default function Cart() {
       <main className="min-h-[60vh] flex flex-col items-center justify-center py-16 px-4">
         <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center">
           <h2 className="text-2xl font-bold mb-2 text-gray-800">Your cart is empty</h2>
-          <p className="mb-6 text-gray-500">Looks like you haven't added anything yet.</p>
+          <p className="mb-6 text-gray-500">Looks like you haven&apos;t added anything yet.</p>
           <Button asChild className="px-8 py-2 text-base rounded-full">
             <Link href="/products">Shop Products</Link>
           </Button>
