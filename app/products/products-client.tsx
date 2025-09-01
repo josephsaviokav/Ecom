@@ -52,7 +52,7 @@ export default function ProductsClient({ products }: ProductsClientProps) {
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
           {products.map((product: ProductType) => {
             const cartItem = items.find((item: { id: string }) => item.id === product.id);
-            const quantity = cartItem?.quantity || 0;
+            // const quantity = cartItem?.quantity || 0;
             const price = product.default_price as Stripe.Price | undefined;
             return (
               <div
